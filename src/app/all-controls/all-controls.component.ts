@@ -11,7 +11,7 @@ import {TagSelectorComponent} from './tag-selector.component';
 
         <div fxLayout="row">
             <div class='bordered' fxFlex="50" fxFlex.sm="100">
-                <django-inpage-form djangoUrl="/api/1.0/test/1/" (submit)="submit($event)"
+                <django-inpage-form djangoUrl="/api/1.0/test/" (submit)="submit($event)"
                                     (cancel)="cancel($event)"
                                     (valueChanged)="valueChanged($event)"></django-inpage-form>
             </div>
