@@ -22,12 +22,12 @@ Start demo from git source
 
     git clone https://github.com/Sherevv/django-angular-dynamic-forms.git
 
-2. Create simlink (or just copy) ``angular_dynamic_forms`` folder to ``demo/django``.
+2. Create symlink (or just copy) ``angular_dynamic_forms`` folder to ``demo/django``.
 
 .. code-block:: bash
 
     cd django-angular-dynamic-forms
-    ln -s angular_dynamic_forms demo/django/angular_dynamic_forms
+    ln -s /path-to/angular_dynamic_forms /path-to/demo/django/angular_dynamic_forms
 
 3. Create virtualenv, install Django and django-rest-framework,
 
