@@ -137,7 +137,7 @@ To render forms, this library uses https://github.com/udos86/ng-dynamic-forms - 
 to add it to your package.json.
 
 and add ``DjangoFormModule`` to imports. You will need to provide your own ErrorService for showing
-communication errors back to the user. See the ``demo/angular/src/app/mat-error.service.ts`` for
+communication errors back to the user. See the ``src/app/mat-error.service.ts`` for
 an example implementation.
 
 .. code-block:: typescript
