@@ -29,6 +29,8 @@ Start demo from git source
     cd django-angular-dynamic-forms
     ln -s /path-to/angular_dynamic_forms /path-to/demo/django/angular_dynamic_forms
 
+Replace ``/path-to/`` to yours.
+
 3. Create virtualenv, install Django and django-rest-framework,
 
 .. code-block:: bash
