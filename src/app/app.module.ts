@@ -113,7 +113,11 @@ export class SimpleForeignFieldFormatter implements ForeignFieldFormatter {
         MatSliderModule,
         MatSlideToggleModule,
         FormsModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        HttpClientXsrfModule.withOptions({
+            cookieName: 'csrftoken',
+            headerName: 'X-CSRFToken'
+        }),
     ],
     providers: [
         {
