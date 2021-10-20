@@ -1,21 +1,8 @@
-import {AfterViewInit, Component, Inject, Injectable, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CodeSampleComponent} from '../code-sample/code-sample.component';
-import {
-    MAT_DIALOG_DATA, MatDialogRef, MatPaginator, MatSort, MatTableDataSource, PageEvent,
-    Sort
-} from '@angular/material';
-import {debounceTime, distinctUntilChanged, map, mergeMap} from 'rxjs/operators';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
-import {ForeignSelectorComponent} from './foreign-selector.component';
-import {Observable, Subscription, of as observableOf, combineLatest} from 'rxjs';
 import {ForeignSelectorFactoryService} from './foreign-selector-factory.service';
 import {TagSelectorComponent} from './tag-selector.component';
-import {
-    FOREIGN_FIELD_FORMATTER_PROVIDER, ForeignFieldFormatter,
-    ForeignFieldLookupConfig
-} from 'django-angular-dynamic-forms';
-import {SimpleForeignFieldFormatter} from '../app.module';
+
 
 @Component({
     selector: 'app-create-in-page',
