@@ -1,3 +1,63 @@
+About this fork
+===================================================
+Update code for support Django 3 and Angular 12
+
+Folder description
+----------------------------
+``angular_dynamic_forms`` - module for Django, you may just copy to you django project dir
+
+``demo/django`` - demo django project
+
+``projects`` - angular module
+
+``src`` - angular demo
+
+
+Start demo from git source
+----------------------------
+
+1. Clone this repo
+
+.. code-block:: bash
+
+    git clone https://github.com/Sherevv/django-angular-dynamic-forms.git
+
+2. Create simlink (or just copy) ``angular_dynamic_forms`` folder to ``demo/django``.
+
+.. code-block:: bash
+
+    cd django-angular-dynamic-forms
+    ln -s angular_dynamic_forms demo/django/angular_dynamic_forms
+
+3. Create virtualenv, install Django and django-rest-framework,
+
+.. code-block:: bash
+
+    python3 -m venv env
+    source env/bin/activate
+    pip install Django
+    pip install djangorestframework
+
+4. Apply migrations, fill with demo data, start django server
+
+.. code-block:: bash
+
+    cd demo/django/
+    python manage.py migrate
+    python manage.py demo_initial_data
+    python manage.py runserver 127.0.0.1:8000
+
+
+5. Go to angular demo dir ``src``, install dependencies and start angular dev server
+
+.. code-block:: bash
+
+    yarn install
+    npm run start
+
+6. Open in browser angular page url (http://localhost:4200)
+
+
 Django Rest Framework meets Angular 6 dynamic forms
 ===================================================
 
