@@ -6,7 +6,7 @@ import {HighlightJsService} from 'angular2-highlight-js';
     selector: 'code-sample',
     template: `
         <mat-tab-group style="margin-top: 50px;" #group (selectedTabChange)="tabChange($event.index)">
-            
+
             <mat-tab [label]="tab.tab" *ngFor="let tab of tabs">
                 <div>
                     <pre [ngClass]="replaceSpaces(tab.tab)" [innerHtml]="">{{tab.text}}</pre>
@@ -22,7 +22,7 @@ export class CodeSampleComponent implements AfterViewInit {
     group: MatTabGroup;
 
     @Input()
-    tabs: { tab: string, text: string }[];
+    tabs: { tab: string; text: string }[];
 
     constructor(private el: ElementRef, private service: HighlightJsService) {
     }
@@ -32,16 +32,16 @@ export class CodeSampleComponent implements AfterViewInit {
     }
 
     tabChange(index) {
-        let el = this.el.nativeElement.querySelector(`.${this.replaceSpaces(this.tabs[index].tab)}`);
+        const el = this.el.nativeElement.querySelector(`.${this.replaceSpaces(this.tabs[index].tab)}`);
         if (el) {
             this.service.highlight(el);
         }
     }
 
-    update(tab : string, value: any) {
+    update(tab: string, value: any) {
         value = JSON.stringify(value, null, 4);
         const tabIndex = this.tabs.findIndex(x => x.tab==tab);
-        this.tabs[tabIndex] = {tab: tab, text: value};
+        this.tabs[tabIndex] = {tab, text: value};
         this.tabChange(tabIndex);
         this.group.selectedIndex = tabIndex;
     }
