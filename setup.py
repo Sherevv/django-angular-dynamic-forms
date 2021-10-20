@@ -25,9 +25,9 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='6.1.3',
+    version='7.0.0',
 
-    description='Django Rest Framework meets Angular 5 material.io dynamic forms - rapid development of create and edit dialogs',
+    description='Django Rest Framework meets Angular material.io dynamic forms - rapid development of create and edit dialogs',
     long_description=long_description,
 
     # The project's main homepage.
@@ -60,6 +60,9 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
     ],
 
     # What does your project relate to?
