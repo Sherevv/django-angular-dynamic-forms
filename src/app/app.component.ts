@@ -110,5 +110,5 @@ import {environment} from '../environments/environment';
 })
 export class AppComponent {
     title = 'app';
-    version = environment.version || "unknown";
+    version = environment.version || 'unknown';
 }
