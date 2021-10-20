@@ -65,7 +65,7 @@ urlpatterns = [
         },
         {
             tab: 'template',
-            text: `<button mat-raised-button color="primary" (click)="click()">Click to create a new City via dialog</button>`
+            text: '<button mat-raised-button color="primary" (click)="click()">Click to create a new City via dialog</button>'
         }, {
 
             tab: 'response',
@@ -84,7 +84,7 @@ urlpatterns = [
         this.dialog.open('/api/1.0/cities/', {
             config: {
                 initialData: {
-                    'name': 'Prague'
+                    name: 'Prague'
                 }
             }
         }).subscribe(result => {

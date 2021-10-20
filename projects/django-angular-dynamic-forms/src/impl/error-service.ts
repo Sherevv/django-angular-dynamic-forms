@@ -5,7 +5,7 @@ import {Observable, EMPTY} from 'rxjs';
 export class ErrorService {
 
     public showError(message: any, options?: {
-        duration?: number
+        duration?: number;
     }) {
         console.error(message, 'will be shown for', options && options.duration);
     }

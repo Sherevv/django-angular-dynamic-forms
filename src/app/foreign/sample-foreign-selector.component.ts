@@ -36,7 +36,7 @@ import {HttpClient} from '@angular/common/http';
             </ng-container>
         </table>`,
     styles: [
-            `table {
+        `table {
             max-width: 300px;
             width: 100%;
             border-collapse: collapse;
@@ -64,10 +64,10 @@ export class SampleForeignSelectorComponent implements OnInit, ForeignFieldLooku
             distinctUntilChanged(),
             // normally you would use a service here ...
             mergeMap((query) => http.get<any[]>(data.config.autocompleteUrl, {
-                    params: {
-                        query: query
-                    }
-                })
+                params: {
+                    query
+                }
+            })
             )
         );
     }

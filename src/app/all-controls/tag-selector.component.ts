@@ -22,7 +22,7 @@ import {HttpClient} from '@angular/common/http';
         <button mat-button (click)="save()">Save</button>
     `,
     styles: [
-            `
+        `
             p {
                 padding-bottom: 20px;
             }

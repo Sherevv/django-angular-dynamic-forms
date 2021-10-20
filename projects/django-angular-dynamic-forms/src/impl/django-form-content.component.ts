@@ -85,9 +85,7 @@ class AutoCompleter {
         if (this.autocompletionUrl) {
             this.http
                 .post<any[]>(this.autocompletionUrl + '?query=' + encodeURIComponent(value), formValue)
-                .pipe(catchError((error) => {
-                    return this.errors.showCommunicationError(error);
-                }))
+                .pipe(catchError((error) => this.errors.showCommunicationError(error)))
                 .subscribe((resp) => {
                     resp = resp || [];
                     filteredList = resp.map((x) => x.label);
@@ -133,11 +131,11 @@ export class DjangoFormContentComponent implements OnInit, OnDestroy {
     private autocompleters: AutoCompleter[] = [];
     private lastId = 0;
 
-    private _externalErrors: { [s: string]: any; } = {};
+    private _externalErrors: { [s: string]: any } = {};
     private _initialData: any = null;
 
     private foreigns: any[] = [];
-    private foreignDefinitions: { [s: string]: any; } = {};
+    private foreignDefinitions: { [s: string]: any } = {};
 
     @Output()
     valueChanged = new EventEmitter<any>();
@@ -252,7 +250,7 @@ export class DjangoFormContentComponent implements OnInit, OnDestroy {
             this.valueChangedSubscription.unsubscribe();
         }
         this.valueChangedSubscription = this.formGroup.valueChanges.subscribe(value => {
-            function _flatten(o) {
+            const _flatten = o => {
                 if (o === undefined || o === null) {
                     return [];
                 }
@@ -263,7 +261,7 @@ export class DjangoFormContentComponent implements OnInit, OnDestroy {
                             ({[k]: o[k]})
                     )
                 );
-            }
+            };
             value = Object.assign({}, ..._flatten(value));
             this.valueChanged.emit(value);
         });
@@ -307,7 +305,7 @@ export class DjangoFormContentComponent implements OnInit, OnDestroy {
     }
 
     private _installForeignHandler(name: string, control: AbstractControl, valueAccessor: any,
-                                   formModel: DynamicSelectModel<string>) {
+        formModel: DynamicSelectModel<string>) {
         const def = this.foreignDefinitions[name];
         if (this.foreigns.indexOf(control) < 0) {
             this.foreigns.push(control);
@@ -354,7 +352,7 @@ export class DjangoFormContentComponent implements OnInit, OnDestroy {
     }
 
     private _setForeignSelectValue(def: ForeignFieldLookupConfig, formModel: DynamicSelectModel<string>,
-                                   result: ForeignFieldLookupResult[] | undefined) {
+        result: ForeignFieldLookupResult[] | undefined) {
         result = this._transformForeignValue(def, result);
         if (result === undefined) {
             // do nothing for undefined result
@@ -416,331 +414,331 @@ export class DjangoFormContentComponent implements OnInit, OnDestroy {
         };
 
         switch (type) {
-            case SimpleFieldTypes.STRING: {
-                const sfc = fieldConfig as StringFieldConfig;
-                const model = new DynamicInputModel(
-                    {
-                        id,
-                        placeholder: label,
-                        required: fieldConfig.required,
-                        disabled: fieldConfig.readOnly,
-                        validators: {
-                            externalValidator: {
-                                name: externalValidator.name,
-                                args: {id, errors: this._externalErrors}
-                            },
-                            maxLength: sfc.maxLength,
-                            minLength: sfc.minLength
+        case SimpleFieldTypes.STRING: {
+            const sfc = fieldConfig as StringFieldConfig;
+            const model = new DynamicInputModel(
+                {
+                    id,
+                    placeholder: label,
+                    required: fieldConfig.required,
+                    disabled: fieldConfig.readOnly,
+                    validators: {
+                        externalValidator: {
+                            name: externalValidator.name,
+                            args: {id, errors: this._externalErrors}
                         },
-                        errorMessages: {
-                            externalError: '{{externalError}}'
-                        },
-                        list: sfc.autocompleteList
+                        maxLength: sfc.maxLength,
+                        minLength: sfc.minLength
                     },
-                    mergeLayouts(fieldConfig.layout, extraLayout)
-                );
-                if (sfc.autocompleteList ||
+                    errorMessages: {
+                        externalError: '{{externalError}}'
+                    },
+                    list: sfc.autocompleteList
+                },
+                mergeLayouts(fieldConfig.layout, extraLayout)
+            );
+            if (sfc.autocompleteList ||
                     sfc.autocompleteUrl) {
-                    this.autocompleters.push(
-                        new AutoCompleter(this.httpClient, this.errorService,
-                            sfc.autocompleteList,
-                            sfc.autocompleteUrl,
-                            model));
-                }
-                return model;
+                this.autocompleters.push(
+                    new AutoCompleter(this.httpClient, this.errorService,
+                        sfc.autocompleteList,
+                        sfc.autocompleteUrl,
+                        model));
             }
-            case SimpleFieldTypes.EMAIL: {
-                const sfc = fieldConfig as EmailFieldConfig;
-                const model = new DynamicInputModel(
-                    {
-                        id,
-                        placeholder: label,
-                        required: fieldConfig.required,
-                        disabled: fieldConfig.readOnly,
-                        inputType: 'email',
-                        validators: {
-                            externalValidator: {
-                                name: externalValidator.name,
-                                args: {id, errors: this._externalErrors}
-                            },
-                            maxLength: sfc.maxLength,
-                            minLength: sfc.minLength
+            return model;
+        }
+        case SimpleFieldTypes.EMAIL: {
+            const sfc = fieldConfig as EmailFieldConfig;
+            const model = new DynamicInputModel(
+                {
+                    id,
+                    placeholder: label,
+                    required: fieldConfig.required,
+                    disabled: fieldConfig.readOnly,
+                    inputType: 'email',
+                    validators: {
+                        externalValidator: {
+                            name: externalValidator.name,
+                            args: {id, errors: this._externalErrors}
                         },
-                        errorMessages: {
-                            externalError: '{{externalError}}'
-                        },
-                        list: sfc.autocompleteList
+                        maxLength: sfc.maxLength,
+                        minLength: sfc.minLength
                     },
-                    mergeLayouts(fieldConfig.layout, extraLayout)
-                );
-                if (sfc.autocompleteList ||
+                    errorMessages: {
+                        externalError: '{{externalError}}'
+                    },
+                    list: sfc.autocompleteList
+                },
+                mergeLayouts(fieldConfig.layout, extraLayout)
+            );
+            if (sfc.autocompleteList ||
                     sfc.autocompleteUrl) {
-                    this.autocompleters.push(
-                        new AutoCompleter(this.httpClient, this.errorService,
-                            sfc.autocompleteList,
-                            sfc.autocompleteUrl,
-                            model));
-                }
-                return model;
+                this.autocompleters.push(
+                    new AutoCompleter(this.httpClient, this.errorService,
+                        sfc.autocompleteList,
+                        sfc.autocompleteUrl,
+                        model));
             }
-            case SimpleFieldTypes.TEXTAREA:
-                return new DynamicTextAreaModel(
-                    {
-                        id,
-                        placeholder: label,
-                        required: fieldConfig.required,
-                        disabled: fieldConfig.readOnly,
-                        rows: 5,
-                        validators: {
-                            externalValidator: {
-                                name: externalValidator.name,
-                                args: {id, errors: this._externalErrors}
-                            },
-                            maxLength: (fieldConfig as TextAreaFieldConfig).maxLength,
-                            minLength: (fieldConfig as TextAreaFieldConfig).minLength
+            return model;
+        }
+        case SimpleFieldTypes.TEXTAREA:
+            return new DynamicTextAreaModel(
+                {
+                    id,
+                    placeholder: label,
+                    required: fieldConfig.required,
+                    disabled: fieldConfig.readOnly,
+                    rows: 5,
+                    validators: {
+                        externalValidator: {
+                            name: externalValidator.name,
+                            args: {id, errors: this._externalErrors}
                         },
-                        errorMessages: {
-                            externalError: '{{externalError}}'
-                        },
+                        maxLength: (fieldConfig as TextAreaFieldConfig).maxLength,
+                        minLength: (fieldConfig as TextAreaFieldConfig).minLength
                     },
-                    mergeLayouts(fieldConfig.layout, extraLayout)
-                );
-            case SimpleFieldTypes.DATE:
-                return new DynamicInputModel(
-                    {
-                        id,
-                        placeholder: label,
-                        inputType: DYNAMIC_FORM_CONTROL_INPUT_TYPE_DATE,
-                        required: fieldConfig.required,
-                        disabled: fieldConfig.readOnly,
-                        validators: {
-                            externalValidator: {
-                                name: externalValidator.name,
-                                args: {id, errors: this._externalErrors}
-                            }
-                        },
-                        errorMessages: {
-                            externalError: '{{externalError}}'
-                        },
+                    errorMessages: {
+                        externalError: '{{externalError}}'
                     },
-                    mergeLayouts(fieldConfig.layout, extraLayout)
-                );
-            case SimpleFieldTypes.INTEGER:
-                const ifc = (fieldConfig as IntegerFieldConfig);
-                return new DynamicInputModel(
-                    {
-                        id,
-                        placeholder: label,
-                        inputType: DYNAMIC_FORM_CONTROL_INPUT_TYPE_NUMBER,
-                        required: fieldConfig.required,
-                        disabled: fieldConfig.readOnly,
+                },
+                mergeLayouts(fieldConfig.layout, extraLayout)
+            );
+        case SimpleFieldTypes.DATE:
+            return new DynamicInputModel(
+                {
+                    id,
+                    placeholder: label,
+                    inputType: DYNAMIC_FORM_CONTROL_INPUT_TYPE_DATE,
+                    required: fieldConfig.required,
+                    disabled: fieldConfig.readOnly,
+                    validators: {
+                        externalValidator: {
+                            name: externalValidator.name,
+                            args: {id, errors: this._externalErrors}
+                        }
+                    },
+                    errorMessages: {
+                        externalError: '{{externalError}}'
+                    },
+                },
+                mergeLayouts(fieldConfig.layout, extraLayout)
+            );
+        case SimpleFieldTypes.INTEGER:
+            const ifc = (fieldConfig as IntegerFieldConfig);
+            return new DynamicInputModel(
+                {
+                    id,
+                    placeholder: label,
+                    inputType: DYNAMIC_FORM_CONTROL_INPUT_TYPE_NUMBER,
+                    required: fieldConfig.required,
+                    disabled: fieldConfig.readOnly,
+                    min: ifc.minValue,
+                    max: ifc.maxValue,
+                    validators: {
+                        externalValidator: {
+                            name: externalValidator.name,
+                            args: {id, errors: this._externalErrors}
+                        },
                         min: ifc.minValue,
-                        max: ifc.maxValue,
-                        validators: {
-                            externalValidator: {
-                                name: externalValidator.name,
-                                args: {id, errors: this._externalErrors}
-                            },
-                            min: ifc.minValue,
-                            max: ifc.maxValue
-                        },
-                        errorMessages: {
-                            externalError: '{{externalError}}',
-                            min: `Value must be in range ${ifc.minValue} - ${ifc.maxValue}`,
-                            max: `Value must be in range ${ifc.minValue} - ${ifc.maxValue}`
-                        }
+                        max: ifc.maxValue
                     },
-                    mergeLayouts(fieldConfig.layout, extraLayout)
-                );
-            case SimpleFieldTypes.FLOAT:
-                const ffc = (fieldConfig as FloatFieldConfig);
-                return new DynamicInputModel(
-                    {
-                        id,
-                        placeholder: label,
-                        inputType: DYNAMIC_FORM_CONTROL_INPUT_TYPE_NUMBER,
-                        required: fieldConfig.required,
-                        disabled: fieldConfig.readOnly,
+                    errorMessages: {
+                        externalError: '{{externalError}}',
+                        min: `Value must be in range ${ifc.minValue} - ${ifc.maxValue}`,
+                        max: `Value must be in range ${ifc.minValue} - ${ifc.maxValue}`
+                    }
+                },
+                mergeLayouts(fieldConfig.layout, extraLayout)
+            );
+        case SimpleFieldTypes.FLOAT:
+            const ffc = (fieldConfig as FloatFieldConfig);
+            return new DynamicInputModel(
+                {
+                    id,
+                    placeholder: label,
+                    inputType: DYNAMIC_FORM_CONTROL_INPUT_TYPE_NUMBER,
+                    required: fieldConfig.required,
+                    disabled: fieldConfig.readOnly,
+                    min: ffc.minValue,
+                    max: ffc.maxValue,
+                    step: 0.00000001,
+                    validators: {
+                        externalValidator: {
+                            name: externalValidator.name,
+                            args: {id, errors: this._externalErrors}
+                        },
                         min: ffc.minValue,
-                        max: ffc.maxValue,
-                        step: 0.00000001,
-                        validators: {
-                            externalValidator: {
-                                name: externalValidator.name,
-                                args: {id, errors: this._externalErrors}
-                            },
-                            min: ffc.minValue,
-                            max: ffc.maxValue
-                        },
-                        errorMessages: {
-                            externalError: '{{externalError}}',
-                            min: `Value must be in range ${ffc.minValue} - ${ffc.maxValue}`,
-                            max: `Value must be in range ${ffc.minValue} - ${ffc.maxValue}`
-                        }
+                        max: ffc.maxValue
                     },
-                    mergeLayouts(fieldConfig.layout, extraLayout)
-                );
-            case SimpleFieldTypes.BOOLEAN:
-                return new DynamicCheckboxModel(
-                    {
-                        id,
-                        label,
-                        required: fieldConfig.required,
-                        disabled: fieldConfig.readOnly,
-                        validators: {
-                            externalValidator: {
-                                name: externalValidator.name,
-                                args: {id, errors: this._externalErrors}
-                            }
-                        },
-                        errorMessages: {
-                            externalError: '{{externalError}}'
-                        }
-                    },
-                    mergeLayouts(fieldConfig.layout, extraLayout)
-                );
-            case SimpleFieldTypes.RADIO:
-                return new DynamicRadioGroupModel(
-                    {
-                        id,
-                        label,
-                        options: (fieldConfig as RadioFieldConfig).choices,
-                        required: fieldConfig.required,
-                        disabled: fieldConfig.readOnly,
-                        validators: {
-                            externalValidator: {
-                                name: externalValidator.name,
-                                args: {id, errors: this._externalErrors}
-                            }
-                        },
-                        errorMessages: {
-                            externalError: '{{externalError}}'
-                        }
-                    },
-                    mergeLayouts(fieldConfig.layout, extraLayout)
-                );
-            case SimpleFieldTypes.SELECT:
-                return new DynamicSelectModel(
-                    {
-                        id,
-                        placeholder: label,
-                        options: (fieldConfig as SelectFieldConfig).choices,
-                        required: fieldConfig.required,
-                        disabled: fieldConfig.readOnly,
-                        validators: {
-                            externalValidator: {
-                                name: externalValidator.name,
-                                args: {id, errors: this._externalErrors}
-                            }
-                        },
-                        errorMessages: {
-                            externalError: '{{externalError}}'
-                        }
-                    },
-                    mergeLayouts(fieldConfig.layout, extraLayout)
-                );
-            case SimpleFieldTypes.FIELD:
-                this.foreignDefinitions[id] = fieldConfig;
-                return new DynamicSelectModel(
-                    {
-                        id,
-                        placeholder: label,
-                        // options: (fieldConfig as SelectFieldConfig).choices,
-                        required: fieldConfig.required,
-                        disabled: fieldConfig.readOnly,
-                        multiple: (fieldConfig as ForeignFieldConfig).multiple || false,
-                        validators: {
-                            externalValidator: {
-                                name: externalValidator.name,
-                                args: {id, errors: this._externalErrors}
-                            }
-                        },
-                        errorMessages: {
-                            externalError: '{{externalError}}'
-                        }
-                    },
-                    mergeLayouts(fieldConfig.layout, extraLayout)
-                );
-            case CompositeFieldTypes.FIELDSET: {
-                const fieldsetLayout = mergeLayouts(fieldConfig.layout, {
-                    grid: {
-                        label: 'dadf-fieldset'
+                    errorMessages: {
+                        externalError: '{{externalError}}',
+                        min: `Value must be in range ${ffc.minValue} - ${ffc.maxValue}`,
+                        max: `Value must be in range ${ffc.minValue} - ${ffc.maxValue}`
                     }
-                });
-                return new DynamicFormGroupModel(
-                    {
-                        id: 'generated_' + this.lastId++,
-                        label,
-                        group: this._generateUIControlArray((fieldConfig as FieldSetConfig).controls)
+                },
+                mergeLayouts(fieldConfig.layout, extraLayout)
+            );
+        case SimpleFieldTypes.BOOLEAN:
+            return new DynamicCheckboxModel(
+                {
+                    id,
+                    label,
+                    required: fieldConfig.required,
+                    disabled: fieldConfig.readOnly,
+                    validators: {
+                        externalValidator: {
+                            name: externalValidator.name,
+                            args: {id, errors: this._externalErrors}
+                        }
                     },
-                    mergeLayouts(fieldsetLayout, extraLayout)
-                );
-            }
-            case CompositeFieldTypes.GROUP: {
-                const groupLayout = mergeLayouts(fieldConfig.layout, {
-                    grid: {
-                        label: 'group'
+                    errorMessages: {
+                        externalError: '{{externalError}}'
                     }
-                });
-                return new DynamicFormGroupModel(
-                    {
-                        id: 'generated_' + this.lastId++,
-                        group: this._generateUIControlArray((fieldConfig as FieldSetConfig).controls)
+                },
+                mergeLayouts(fieldConfig.layout, extraLayout)
+            );
+        case SimpleFieldTypes.RADIO:
+            return new DynamicRadioGroupModel(
+                {
+                    id,
+                    label,
+                    options: (fieldConfig as RadioFieldConfig).choices,
+                    required: fieldConfig.required,
+                    disabled: fieldConfig.readOnly,
+                    validators: {
+                        externalValidator: {
+                            name: externalValidator.name,
+                            args: {id, errors: this._externalErrors}
+                        }
                     },
-                    mergeLayouts(groupLayout, extraLayout)
+                    errorMessages: {
+                        externalError: '{{externalError}}'
+                    }
+                },
+                mergeLayouts(fieldConfig.layout, extraLayout)
+            );
+        case SimpleFieldTypes.SELECT:
+            return new DynamicSelectModel(
+                {
+                    id,
+                    placeholder: label,
+                    options: (fieldConfig as SelectFieldConfig).choices,
+                    required: fieldConfig.required,
+                    disabled: fieldConfig.readOnly,
+                    validators: {
+                        externalValidator: {
+                            name: externalValidator.name,
+                            args: {id, errors: this._externalErrors}
+                        }
+                    },
+                    errorMessages: {
+                        externalError: '{{externalError}}'
+                    }
+                },
+                mergeLayouts(fieldConfig.layout, extraLayout)
+            );
+        case SimpleFieldTypes.FIELD:
+            this.foreignDefinitions[id] = fieldConfig;
+            return new DynamicSelectModel(
+                {
+                    id,
+                    placeholder: label,
+                    // options: (fieldConfig as SelectFieldConfig).choices,
+                    required: fieldConfig.required,
+                    disabled: fieldConfig.readOnly,
+                    multiple: (fieldConfig as ForeignFieldConfig).multiple || false,
+                    validators: {
+                        externalValidator: {
+                            name: externalValidator.name,
+                            args: {id, errors: this._externalErrors}
+                        }
+                    },
+                    errorMessages: {
+                        externalError: '{{externalError}}'
+                    }
+                },
+                mergeLayouts(fieldConfig.layout, extraLayout)
+            );
+        case CompositeFieldTypes.FIELDSET: {
+            const fieldsetLayout = mergeLayouts(fieldConfig.layout, {
+                grid: {
+                    label: 'dadf-fieldset'
+                }
+            });
+            return new DynamicFormGroupModel(
+                {
+                    id: 'generated_' + this.lastId++,
+                    label,
+                    group: this._generateUIControlArray((fieldConfig as FieldSetConfig).controls)
+                },
+                mergeLayouts(fieldsetLayout, extraLayout)
+            );
+        }
+        case CompositeFieldTypes.GROUP: {
+            const groupLayout = mergeLayouts(fieldConfig.layout, {
+                grid: {
+                    label: 'group'
+                }
+            });
+            return new DynamicFormGroupModel(
+                {
+                    id: 'generated_' + this.lastId++,
+                    group: this._generateUIControlArray((fieldConfig as FieldSetConfig).controls)
+                },
+                mergeLayouts(groupLayout, extraLayout)
+            );
+        }
+        case CompositeFieldTypes.COLUMNS: {
+            const csf = (fieldConfig as ColumnsFieldConfig);
+            const model: DynamicFormControlModel[] = [];
+            for (const config of csf.controls) {
+                const _mergedLayout: DynamicFormControlLayout = mergeLayouts(config.layout,
+                    {
+                        grid: {
+                            host: `dadf-column-${csf.controls.length}`
+                        }
+                    }
                 );
+
+                const configWithLayout: FieldConfig = {
+                    ...config,
+                    layout: _mergedLayout
+                } as FieldConfig;           // TODO: why do we need this typecast ?
+
+                const _control = this._generateUIControl(configWithLayout);
+                if (_control) {
+                    model.push(_control);
+                }
             }
-            case CompositeFieldTypes.COLUMNS: {
-                const csf = (fieldConfig as ColumnsFieldConfig);
-                const model: DynamicFormControlModel[] = [];
-                for (const config of csf.controls) {
-                    const _mergedLayout: DynamicFormControlLayout = mergeLayouts(config.layout,
+
+            return new DynamicFormGroupModel(
+                {
+                    id: 'generated_' + this.lastId++,
+                    group: model
+                },
+                mergeLayouts(
+                    mergeLayouts(
+                        fieldConfig.layout,
                         {
                             grid: {
-                                host: `dadf-column-${csf.controls.length}`
-                            }
+                                control: `dadf-columns dadf-columns-${csf.controls.length}`
+                            },
+                            // element: {
+                            //     container: '---container',
+                            //     control: '---control',
+                            //     errors: '---errors',
+                            //     group: '---group',
+                            //     hint: '---hint',
+                            //     host: '---host',
+                            //     label: '---label',
+                            //     option: '---option'
+                            // }
                         }
-                    );
-
-                    const configWithLayout: FieldConfig = {
-                        ...config,
-                        layout: _mergedLayout
-                    } as FieldConfig;           // TODO: why do we need this typecast ?
-
-                    const _control = this._generateUIControl(configWithLayout);
-                    if (_control) {
-                        model.push(_control);
-                    }
-                }
-
-                return new DynamicFormGroupModel(
-                    {
-                        id: 'generated_' + this.lastId++,
-                        group: model
-                    },
-                    mergeLayouts(
-                        mergeLayouts(
-                            fieldConfig.layout,
-                            {
-                                grid: {
-                                    control: `dadf-columns dadf-columns-${csf.controls.length}`
-                                },
-                                // element: {
-                                //     container: '---container',
-                                //     control: '---control',
-                                //     errors: '---errors',
-                                //     group: '---group',
-                                //     hint: '---hint',
-                                //     host: '---host',
-                                //     label: '---label',
-                                //     option: '---option'
-                                // }
-                            }
-                        ), extraLayout)
-                );
-            }
-            default:
-                throw new Error(`No ui control model for ${type}`);
+                    ), extraLayout)
+            );
+        }
+        default:
+            throw new Error(`No ui control model for ${type}`);
         }
     }
 
@@ -767,7 +765,7 @@ export class DjangoFormContentComponent implements OnInit, OnDestroy {
     }
 
     private _transformForeignValue(def: ForeignFieldLookupConfig, initial: any):
-        Array<{ label: string, value: any }> | undefined {
+        Array<{ label: string; value: any }> | undefined {
 
         if (initial === undefined) {
             return undefined;
@@ -790,7 +788,7 @@ export class DjangoFormContentComponent implements OnInit, OnDestroy {
     }
 
     private getControlByName(name: string): AbstractControl | undefined {
-        function getControl(control: AbstractControl, controlName: string): AbstractControl | undefined {
+        const getControl = (control: AbstractControl, controlName: string): AbstractControl | undefined => {
             let ret: AbstractControl | undefined;
             if (control instanceof FormGroup) {
                 const formGroup = control as FormGroup;
@@ -811,13 +809,13 @@ export class DjangoFormContentComponent implements OnInit, OnDestroy {
             if (control instanceof FormArray) {
                 console.error('Arrays are not yet supported !');
             }
-        }
+        };
 
         return getControl(this.formGroup, name);
     }
 
     private iterateControls(visitor: (name: string, control: AbstractControl) => void) {
-        function iter(name: string, control: AbstractControl): void {
+        const iter = (name: string, control: AbstractControl): void => {
             visitor(name, control);
             if (control instanceof FormGroup) {
                 const formGroup = control as FormGroup;
@@ -831,15 +829,15 @@ export class DjangoFormContentComponent implements OnInit, OnDestroy {
             if (control instanceof FormArray) {
                 console.error('Arrays are not yet supported !');
             }
-        }
+        };
 
         return iter('---root---', this.formGroup);
     }
 }
 
-export function externalValidator(conf: { id: string; errors: any }): ValidatorFn {
+export const externalValidator = (conf: { id: string; errors: any }): ValidatorFn =>
     // noinspection JSUnusedLocalSymbols
-    return (_control: AbstractControl): { [key: string]: any } => {
+    (_control: AbstractControl): { [key: string]: any } => {
         if (conf.id in conf.errors) {
             const ret = {externalError: {value: conf.errors[conf.id][0]}};
             delete conf.errors[conf.id];
@@ -848,10 +846,9 @@ export function externalValidator(conf: { id: string; errors: any }): ValidatorF
             return {};
         }
     };
-}
 
-function mergeLayouts(layout1OrUndefined: DynamicFormControlLayout | undefined,
-                      layout2OrUndefined: DynamicFormControlLayout | undefined): DynamicFormControlLayout | undefined {
+const mergeLayouts = (layout1OrUndefined: DynamicFormControlLayout | undefined,
+    layout2OrUndefined: DynamicFormControlLayout | undefined): DynamicFormControlLayout | undefined => {
 
     if (layout1OrUndefined === undefined) {
         return layout2OrUndefined;
@@ -860,8 +857,8 @@ function mergeLayouts(layout1OrUndefined: DynamicFormControlLayout | undefined,
         return layout1OrUndefined;
     }
 
-    function mergeClasses(clz1OrUndefined: DynamicFormControlLayoutConfig | undefined,
-                          clz2OrUndefined: DynamicFormControlLayoutConfig | undefined) {
+    const mergeClasses = (clz1OrUndefined: DynamicFormControlLayoutConfig | undefined,
+        clz2OrUndefined: DynamicFormControlLayoutConfig | undefined) => {
         if (clz1OrUndefined === undefined) {
             return clz2OrUndefined;
         }
@@ -882,7 +879,7 @@ function mergeLayouts(layout1OrUndefined: DynamicFormControlLayout | undefined,
             }
         }
         return classesRet;
-    }
+    };
 
     const layout1 = layout1OrUndefined as DynamicFormControlLayout;
     const layout2 = layout2OrUndefined as DynamicFormControlLayout;
@@ -900,7 +897,7 @@ function mergeLayouts(layout1OrUndefined: DynamicFormControlLayout | undefined,
         ret.element = element;
     }
     return ret;
-}
+};
 
 /**
  *
@@ -908,7 +905,7 @@ function mergeLayouts(layout1OrUndefined: DynamicFormControlLayout | undefined,
  *
  */
 const originFormControlNgOnChanges = FormControlDirective.prototype.ngOnChanges;
-FormControlDirective.prototype.ngOnChanges = function () {
+FormControlDirective.prototype.ngOnChanges = function() {
     if (this.valueAccessor && this.valueAccessor._element) {
         this.form.nativeElement = this.valueAccessor._element.nativeElement;
     }
@@ -916,7 +913,7 @@ FormControlDirective.prototype.ngOnChanges = function () {
 };
 
 const originFormControlNameNgOnChanges = FormControlName.prototype.ngOnChanges;
-FormControlName.prototype.ngOnChanges = function () {
+FormControlName.prototype.ngOnChanges = function() {
     const result = originFormControlNameNgOnChanges.apply(this, arguments);
     this.control.valueAccessor = this.valueAccessor;
     return result;

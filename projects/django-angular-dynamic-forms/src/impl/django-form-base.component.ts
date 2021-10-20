@@ -24,7 +24,7 @@ export class DjangoFormBaseComponent implements OnInit {
      *
      */
     @Output()
-    public submit = new EventEmitter<{ data: any; response?: any, cancel: boolean }>();
+    public submit = new EventEmitter<{ data: any; response?: any; cancel: boolean }>();
 
     /**
      * Returns cancelled form data
@@ -55,10 +55,10 @@ export class DjangoFormBaseComponent implements OnInit {
     }
 
     @Input()
-    public initialDataTransformation: (initialData: any) => any = (x) => x
+    public initialDataTransformation: (initialData: any) => any = (x) => x;
 
     @Input()
-    public configTransformation: (config: DjangoFormConfig) => DjangoFormConfig = (x) => x
+    public configTransformation: (config: DjangoFormConfig) => DjangoFormConfig = (x) => x;
 
     @Input()
     public set djangoUrl(_url: string) {
@@ -182,14 +182,14 @@ export class DjangoFormBaseComponent implements OnInit {
                 let call;
                 console.log('Saving to django url', config.djangoUrl);
                 switch (config.method) {
-                    case 'post':
-                        call = this.httpClient.post(config.djangoUrl, {...extra, ...data}, {withCredentials: true});
-                        break;
-                    case 'patch':
-                        call = this.httpClient.patch(config.djangoUrl, {...extra, ...data}, {withCredentials: true});
-                        break;
-                    default:
-                        throw new Error(`Unimplemented method ${config.method}`);
+                case 'post':
+                    call = this.httpClient.post(config.djangoUrl, {...extra, ...data}, {withCredentials: true});
+                    break;
+                case 'patch':
+                    call = this.httpClient.patch(config.djangoUrl, {...extra, ...data}, {withCredentials: true});
+                    break;
+                default:
+                    throw new Error(`Unimplemented method ${config.method}`);
                 }
                 call.pipe(
                     catchError((error) => {

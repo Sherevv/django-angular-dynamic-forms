@@ -72,7 +72,7 @@ class CityViewSet(AngularFormMixin, viewsets.ModelViewSet):
     click(formId: string) {
 
         this.dialog.open('/api/1.0/cities/', {
-            formId: formId
+            formId
         }).subscribe(result => {
             this.code.update('response', result);
         });

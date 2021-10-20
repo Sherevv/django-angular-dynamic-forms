@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {ErrorService} from './error-service';
 import {DjangoDialogConfig} from './django-form-iface';
 
+
 @Component({
     selector: 'django-dialog-form',
     templateUrl: './dialog-django-form.component.html',
@@ -12,10 +13,10 @@ import {DjangoDialogConfig} from './django-form-iface';
 })
 export class DialogDjangoFormComponent extends DjangoFormBaseComponent {
     constructor(httpClient: HttpClient,
-                snackBar: MatSnackBar,
-                dialogRef: MatDialogRef<DialogDjangoFormComponent>,
+        snackBar: MatSnackBar,
+        dialogRef: MatDialogRef<DialogDjangoFormComponent>,
                 @Inject(MAT_DIALOG_DATA) data: DjangoDialogConfig,
-                errorService: ErrorService) {
+        errorService: ErrorService) {
         super(httpClient, snackBar, errorService);
 
         this.submit.subscribe((info: { data: any; response?: any; cancel: boolean }) => {

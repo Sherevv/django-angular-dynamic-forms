@@ -60,7 +60,7 @@ urlpatterns = [
         },
         {
             tab: 'template',
-            text: `<button mat-raised-button color="primary" (click)="click()">Click to create a new City via dialog</button>`
+            text: '<button mat-raised-button color="primary" (click)="click()">Click to create a new City via dialog</button>'
         },
         {
             tab: 'response',

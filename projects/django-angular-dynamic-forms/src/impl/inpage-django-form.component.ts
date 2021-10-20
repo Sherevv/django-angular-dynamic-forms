@@ -12,7 +12,7 @@ import {ErrorService} from './error-service';
 export class InPageDjangoFormComponent extends DjangoFormBaseComponent {
 
     @Output()
-    shown = new EventEmitter<{ form: DjangoFormBaseComponent, config: any }>();
+    shown = new EventEmitter<{ form: DjangoFormBaseComponent; config: any }>();
 
     constructor(http: HttpClient, snackBar: MatSnackBar, errorService: ErrorService) {
         super(http, snackBar, errorService);
@@ -20,7 +20,7 @@ export class InPageDjangoFormComponent extends DjangoFormBaseComponent {
 
     protected configLoaded(config: any) {
         if (Object.keys(config).length > 0) {
-            this.shown.emit({form: this, config: config});
+            this.shown.emit({form: this, config});
         }
     }
 

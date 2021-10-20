@@ -11,6 +11,7 @@ import {DjangoFormBaseComponent} from './impl/django-form-base.component';
 import {DjangoFormDialogService} from './django-form-dialog.service';
 import {HttpClientModule} from '@angular/common/http';
 
+
 @NgModule({
     declarations: [InPageDjangoFormComponent, DjangoFormContentComponent,
         DialogDjangoFormComponent, DjangoFormBaseComponent

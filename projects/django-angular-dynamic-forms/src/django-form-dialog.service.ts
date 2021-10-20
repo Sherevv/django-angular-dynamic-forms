@@ -14,7 +14,7 @@ export class DjangoFormDialogService {
     }
 
     public open(djangoUrl: string,
-                extraOptions?: DjangoDialogConfig): Observable<any> {
+        extraOptions?: DjangoDialogConfig): Observable<any> {
 
         if (!extraOptions) {
             extraOptions = {};

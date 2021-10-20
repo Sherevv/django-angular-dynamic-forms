@@ -12,6 +12,7 @@ import {Observable, merge, of as observableOf, combineLatest, Subscription} from
 import {debounceTime, distinctUntilChanged, mergeMap, tap, map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 
+
 @Component({
     selector: 'app-foreign-selector',
     template:
@@ -57,7 +58,7 @@ import {HttpClient} from '@angular/common/http';
     <mat-paginator [pageSizeOptions]="[5, 10]" [length]="itemCount"></mat-paginator>
     `,
     styles: [
-            `table {
+        `table {
             max-width: 300px;
             width: 100%;
             border-collapse: collapse;
@@ -120,14 +121,14 @@ export class ForeignSelectorComponent implements OnInit, ForeignFieldLookupCompo
             })),
             // normally you would use a service here ...
             mergeMap((opts) => this.http.get<any>(this.data.config.autocompleteUrl, {
-                    params: {
-                        query: opts.filter,
-                        pageIndex: opts.paginator.pageIndex.toString(),
-                        pageSize: opts.paginator.pageSize.toString(),
-                        sortBy: opts.sort.active,
-                        sortDirection: opts.sort.direction
-                    }
-                })
+                params: {
+                    query: opts.filter,
+                    pageIndex: opts.paginator.pageIndex.toString(),
+                    pageSize: opts.paginator.pageSize.toString(),
+                    sortBy: opts.sort.active,
+                    sortDirection: opts.sort.direction
+                }
+            })
             )
         ).subscribe((cities) => {
             this.dataSource = new MatTableDataSource<any>(cities.items);
