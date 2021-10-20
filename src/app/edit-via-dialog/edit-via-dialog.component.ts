@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
+import {MatTableDataSource} from '@angular/material/table';
 import {HttpClient} from '@angular/common/http';
 import {DjangoFormDialogService, ErrorService} from 'django-angular-dynamic-forms';
 import {CodeSampleComponent} from '../code-sample/code-sample.component';

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {DjangoFormBaseComponent} from './django-form-base.component';
 import {HttpClient} from '@angular/common/http';
 import {ErrorService} from './error-service';

@@ -3,7 +3,7 @@ import {
     ForeignFieldLookupComponent, ForeignFieldLookupConfig, ForeignFieldLookupResult,
     ForeignFieldLookupComponentData
 } from 'django-angular-dynamic-forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable, merge, of as observableOf} from 'rxjs';
 import {debounceTime, distinctUntilChanged, mergeMap, map} from 'rxjs/operators';

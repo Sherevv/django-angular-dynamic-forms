@@ -3,10 +3,10 @@ import {
     ForeignFieldLookupComponent, ForeignFieldLookupConfig, ForeignFieldLookupResult,
     ForeignFieldLookupComponentData
 } from 'django-angular-dynamic-forms';
-import {
-    MAT_DIALOG_DATA, MatDialogRef, MatPaginator, MatSort, MatTableDataSource, PageEvent,
-    Sort
-} from '@angular/material';
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
+import { MatSort, Sort } from "@angular/material/sort";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MatTableDataSource } from "@angular/material/table";
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable, merge, of as observableOf, combineLatest, Subscription} from 'rxjs';
 import {debounceTime, distinctUntilChanged, mergeMap, tap, map} from 'rxjs/operators';

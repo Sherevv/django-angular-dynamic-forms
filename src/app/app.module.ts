@@ -10,27 +10,11 @@ import {
     ForeignFieldLookupConfig
 } from 'django-angular-dynamic-forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {
-    MatButtonModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatPaginatorModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
-    MatTabsModule
-} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {AppRoutingModule} from './app-routing.module';
 import {IntroComponent} from './intro/intro.component';
 import {CreateViaDialogComponent} from './create-via-dialog/create-via-dialog.component';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import {MatErrorService} from './mat-error.service';
 import {HighlightJsModule, HighlightJsService} from 'angular2-highlight-js';
 import {CodeSampleComponent} from './code-sample/code-sample.component';
@@ -54,6 +38,20 @@ import {ForeignSelectorComponent} from './all-controls/foreign-selector.componen
 import {TagSelectorComponent} from './all-controls/tag-selector.component';
 import { CreateForeignComponent } from './create-foreign/create-foreign.component';
 import {CreateCustomSaveComponent} from './create-custom-save/create-custom-save.component';
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { MatListModule } from "@angular/material/list";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatTableModule } from "@angular/material/table";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatInputModule } from "@angular/material/input";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatSortModule } from "@angular/material/sort";
+import { MatSliderModule } from "@angular/material/slider";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 
 @Injectable()
@@ -89,7 +87,7 @@ export class SimpleForeignFieldFormatter implements ForeignFieldFormatter {
         ForeignSelectorComponent,
         TagSelectorComponent,
         CreateForeignComponent,
-        CreateCustomSaveComponent
+        CreateCustomSaveComponent,
     ],
     imports: [
         BrowserAnimationsModule,

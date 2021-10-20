@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {MatTabGroup} from '@angular/material';
+import {MatTabGroup} from '@angular/material/tabs';
 import {HighlightJsService} from 'angular2-highlight-js';
 
 @Component({

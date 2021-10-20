@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {BehaviorSubject, EMPTY, merge, Observable, Subject} from 'rxjs';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {ErrorService} from './error-service';
 import {catchError, filter, map, mergeMap, partition, shareReplay, take, tap} from 'rxjs/operators';

@@ -3,7 +3,7 @@
  */
 
 import {Injectable, InjectionToken, Type} from '@angular/core';
-import {MatDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material/dialog';
 
 /**
  * An interface that represents a result of foreign field lookup (i.e. the result of foreign key dialog)

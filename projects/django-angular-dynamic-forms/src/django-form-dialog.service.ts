@@ -1,7 +1,4 @@
-
-
-
-import {MatDialog} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 import {DialogDjangoFormComponent} from './impl/dialog-django-form.component';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';

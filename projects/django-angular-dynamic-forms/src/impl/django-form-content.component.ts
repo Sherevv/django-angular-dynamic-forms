@@ -29,6 +29,7 @@ import {
     DYNAMIC_FORM_CONTROL_INPUT_TYPE_NUMBER,
     DynamicCheckboxModel,
     DynamicFormControlLayout,
+    DynamicFormControlLayoutConfig,
     DynamicFormControlModel,
     DynamicFormGroupModel,
     DynamicFormService,
@@ -56,7 +57,6 @@ import {
     StringFieldConfig,
     TextAreaFieldConfig
 } from './django-form-iface';
-import {DynamicFormControlLayoutConfig} from '@ng-dynamic-forms/core/src/model/misc/dynamic-form-control-layout.model';
 import {
     FOREIGN_FIELD_FORMATTER_PROVIDER,
     FOREIGN_FIELD_LOOKUP_COMPONENT_PROVIDER,
@@ -67,7 +67,7 @@ import {
     ForeignFieldLookupFactory,
     ForeignFieldLookupResult
 } from '../foreign';
-import {MatDialog} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 import {catchError} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 

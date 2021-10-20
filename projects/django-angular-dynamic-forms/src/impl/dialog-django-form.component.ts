@@ -1,6 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {DjangoFormBaseComponent} from './django-form-base.component';
-import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {HttpClient} from '@angular/common/http';
 import {ErrorService} from './error-service';
 import {DjangoDialogConfig} from './django-form-iface';

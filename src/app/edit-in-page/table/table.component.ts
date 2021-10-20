@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
+import {MatTableDataSource} from '@angular/material/table';
 import {ErrorService} from 'django-angular-dynamic-forms';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
